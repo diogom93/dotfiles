@@ -5,6 +5,7 @@ antigen bundle docker-compose
 antigen bundle git
 antigen bundle pip
 
+export NVM_LAZY_LOAD=true
 antigen bundle lukechilds/zsh-nvm
 antigen bundle mattberther/zsh-pyenv
 antigen bundle zsh-users/zsh-completions
