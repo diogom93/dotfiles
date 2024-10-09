@@ -1,0 +1,40 @@
+[include]
+    path = /Users/dmartins/.config/delta/themes/tokyonight.gitconfig
+[user]
+    name = Diogo Martins
+    email = nunodiogomartins@gmail.com
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJjfvZojnjSNNfxFLPwiKYPkJKe19Mqyi/fTvewHol2e
+
+[commit]
+    gpgsign = true
+
+[gpg]
+    program = /usr/local/MacGPG2/bin/gpg2
+    format = ssh
+
+[gpg "ssh"]
+    program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    dark = true
+    # light = true
+    features = tokyonight-night
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[mergetool]
+    keepBackup = false
+    prompt = false

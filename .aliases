@@ -1,0 +1,5 @@
+alias git="LANG=en_US.UTF-8 git"
+alias vim="nvim"
+alias vi="nvim"
+alias ls="eza --color=always --long --git --icons=always"
+alias cat="bat"
