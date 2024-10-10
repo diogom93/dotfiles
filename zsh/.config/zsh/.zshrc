@@ -9,7 +9,7 @@ export GOPATH="$HOME/.go"
 
 # --- zsh plugins ---
 source ~/.antidote/antidote.zsh
-antidote load ~/.zsh_plugins
+antidote load "$ZDOTDIR/.zsh_plugins"
 # ---
 
 # --- nvm ---
@@ -108,8 +108,8 @@ eval "$(starship init zsh)"
 #
 
 # --- go ---
-PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-PATH=$PATH:$(go env $GOPATH)/bin
+PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
+PATH="$PATH:$(go env $GOPATH)/bin"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
