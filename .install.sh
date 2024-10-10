@@ -55,6 +55,10 @@ install_macports() {
   sudo installer -pkg "${TEMP_PKG}" -target /
 
   rm -f "${TEMP_PKG}"
+
+  # Add MacPorts to PATH
+  print_bullet_message "Adding MacPorts to PATH..."
+  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 }
 
 install_ports() {
