@@ -16,6 +16,11 @@ return {
 			-- - sd'   - [S]urround [D]elete [']quotes
 			-- - sr)'  - [S]urround [R]eplace [)] [']
 			require("mini.surround").setup()
+			-- Move selection up/down
+			require("mini.move").setup()
+
+			-- Split and join arguments
+			require("mini.splitjoin").setup()
 		end,
 	},
 }

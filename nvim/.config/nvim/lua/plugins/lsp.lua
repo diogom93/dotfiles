@@ -188,7 +188,7 @@ return {
 					filetypes = { "html", "templ" },
 				},
 				emmet_ls = {
-					filetypes = { "html", "templ", "javascriptreact", "typescriptreact" },
+					filetypes = { "html", "templ", "tmpl", "javascriptreact", "typescriptreact" },
 				},
 			}
 
