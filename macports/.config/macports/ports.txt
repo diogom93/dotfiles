@@ -2,8 +2,10 @@
 bash
 bat
 bc
+btop
 coreutils
 eza
+fastfetch
 fd
 fzf
 gawk
@@ -15,6 +17,8 @@ gsed
 jq
 lazygit
 lua
+mkcert
+mysql8-server
 navi
 neovim
 nvm
