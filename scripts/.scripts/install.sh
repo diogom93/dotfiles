@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# ANSI color code for green and red
+# ANSI color codes
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-# Reset color
-NC='\033[0m'
-# Unicode icons
+NC='\033[0m' # Reset
 CHECKMARK="\xE2\x9C\x94"
 CROSS="\xE2\x9C\x98"
 BULLET="\xE2\x80\xA3"
@@ -23,105 +21,142 @@ print_bullet_message() {
 }
 
 spinner() {
-  local condition_check="$1"
-  local message="$2"
-  local delay=0.05
+  local pid=$1
+  local delay=0.1
   local spinchars='|/-\'
 
-  # Start the spinner in the background
-  while "$condition_check"; do
-    for i in $(seq 0 ${#spinchars}); do
-      echo -e -n " ${spinchars:$i:1}" "\r"
-      sleep $delay
+  while kill -0 "$pid" &>/dev/null; do
+    for ((i = 0; i < ${#spinchars}; i++)); do
+      echo -ne " ${spinchars:i:1}" "\r"
+      sleep "$delay"
     done
   done
-  echo " " # Clear the spinner
 }
 
-# Thanks to github.com/dive
 install_macports() {
-  TEMP_PKG="$(mktemp -t macports).pkg"
-  _MACPORTS_LATEST_VERSION="$(curl --silent --url https://raw.githubusercontent.com/macports/macports-base/master/config/RELEASE_URL)"
-  MACPORTS_LATEST_VERSION="${_MACPORTS_LATEST_VERSION##*/v}"
-  MACOS_VERSION="$(sw_vers -productVersion)"
-  MACOS_PRODUCT_VERSION="$(cut -d '.' -f 1 <<< "${MACOS_VERSION}")"
-  MACPORTS_DOWNLOAD_URL="https://distfiles.macports.org/MacPorts/MacPorts-${MACPORTS_LATEST_VERSION}-${MACOS_PRODUCT_VERSION}-Sequoia.pkg"
+  local temp_pkg
+  temp_pkg=$(mktemp).pkg
+  trap 'rm -f "$temp_pkg"' EXIT
+
+  local latest_version
+  latest_version=$(curl --silent "https://raw.githubusercontent.com/macports/macports-base/master/config/RELEASE_URL" | awk -F '/' '{print $NF}' | sed 's/v//')
+  local macos_version
+  macos_version=$(sw_vers -productVersion | cut -d '.' -f 1)
+  local download_url="https://distfiles.macports.org/MacPorts/MacPorts-${latest_version}-${macos_version}-Sequoia.pkg"
+
   print_bullet_message "Downloading MacPorts..."
-  
-  curl --output "${TEMP_PKG}" --remote-name "${MACPORTS_DOWNLOAD_URL}" &> /dev/null
+  curl --fail --output "$temp_pkg" "$download_url" || {
+    print_error_message "Failed to download MacPorts."
+    exit 1
+  }
+  print_valid_message "MacPorts downloaded."
 
-  print_valid_message "MacPorts downloaded"
+  print_bullet_message "Installing MacPorts..."
+  sudo installer -pkg "$temp_pkg" -target / || {
+    print_error_message "Failed to install MacPorts."
+    exit 1
+  }
+  rm -f "$temp_pkg"
 
-  sudo installer -pkg "${TEMP_PKG}" -target /
-
-  rm -f "${TEMP_PKG}"
-
-  # Add MacPorts to PATH
   print_bullet_message "Adding MacPorts to PATH..."
   export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+  print_valid_message "MacPorts installed successfully."
 }
 
 install_ports() {
-  while read -r port; do
-    if port installed requested | grep -q $port; then
+  while IFS= read -r port; do
+    if port installed requested | grep -q "$port"; then
       print_valid_message "$port is already installed"
-      continue
+    else
+      print_bullet_message "Installing $port..."
+      sudo port install "$port" || {
+        print_error_message "Failed to install $port."
+        continue
+      }
     fi
-    print_bullet_message "Installing $port..."
-    sudo port install $port
-  done < $PORTS_FILE
+  done < "$PORTS_FILE"
 }
 
-# Check if Xcode is installed
-if [ -d /Applications/Xcode.app ]; then
-  print_valid_message "Xcode is installed"
-else
-  print_error_message "Xcode is not installed"
-  exit 1
-fi
+stow_dotfiles() {
+  local dotfiles_dir="$HOME/.dotfiles"
+  
+  if [[ ! -d $dotfiles_dir ]]; then
+    print_error_message "Dotfiles directory not found at $dotfiles_dir."
+    exit 1
+  fi
 
-# Check if Xcode Command Line Tools are installed
-COMMAND_LINE_TOOLS_DIR="/Library/Developer/CommandLineTools"
-if [ -d $COMMAND_LINE_TOOLS_DIR ]; then
-  print_valid_message "Xcode Command Line Tools are installed"
-else
-  print_error_message "Xcode Command Line Tools are not installed"
-  xcode-select --install &> /dev/null
-  print_bullet_message "Installing Xcode Command Line Tools..."
-  spinner "eval [ ! -d '$COMMAND_LINE_TOOLS_DIR' ]" 
-  print_valid_message "Xcode Command Line Tools are installed"
-fi
+  print_bullet_message "Stowing dotfiles from $dotfiles_dir..."
+  
+  for folder in "$dotfiles_dir"/*/; do
+    folder_name=$(basename "$folder")
+    print_bullet_message "Processing $folder_name..."
+    
+    if stow -t "$HOME" -d "$dotfiles_dir" "$folder_name"; then
+      print_valid_message "$folder_name stowed successfully."
+    else
+      print_error_message "Failed to stow $folder_name."
+    fi
+  done
 
-# Check if antidote is installed
-if [ -d ~/.antidote ]; then
-  print_valid_message "Antidote is installed"
-else
-  print_error_message "Antidote is not installed"
-  print_bullet_message "Installing Antidote..."
-  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
-fi
+  print_valid_message "All stowable dotfiles processed."
+}
 
-# Check if MacPorts is installed
-if  command -v port &> /dev/null; then
-  print_valid_message "MacPorts is installed"
-else
-  print_error_message "MacPorts is not installed"
-  install_macports
-fi
+main() {
+  # Check for Xcode
+  if [[ -d /Applications/Xcode.app ]]; then
+    print_valid_message "Xcode is installed."
+  else
+    print_error_message "Xcode is not installed."
+    exit 1
+  fi
 
-# Check if we have a ports list
-PORTS_FILE="$HOME/.dotfiles/.config/macports/ports.txt"
-if [ -e $PORTS_FILE ]; then
-  print_valid_message "Ports list found"
-  print_bullet_message "Let's install some ports..."
-  install_ports
-  print_valid_message "All ports installed"
-else
-  print_error_message "Ports list not found"
-  exit 1
-fi
+  # Check for Command Line Tools
+  local command_line_tools_dir="/Library/Developer/CommandLineTools"
+  if [[ -d $command_line_tools_dir ]]; then
+    print_valid_message "Xcode Command Line Tools are installed."
+  else
+    print_error_message "Xcode Command Line Tools are not installed."
+    print_bullet_message "Installing Command Line Tools..."
+    xcode-select --install &>/dev/null &
+    spinner $!
+    print_valid_message "Command Line Tools installed."
+  fi
 
-# Stow dotfiles
-print_bullet_message "Stowing dotfiles..."
-stow -t $HOME -d $HOME/.dotfiles .
-print_valid_message "Dotfiles stowed"
+  # Check for Antidote
+  if [[ -d ~/.antidote ]]; then
+    print_valid_message "Antidote is installed."
+  else
+    print_error_message "Antidote is not installed."
+    print_bullet_message "Installing Antidote..."
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "${ZDOTDIR:-$HOME}/.antidote" || {
+      print_error_message "Failed to install Antidote."
+      exit 1
+    }
+    print_valid_message "Antidote installed."
+  fi
+
+  # Check for MacPorts
+  if command -v port &>/dev/null; then
+    print_valid_message "MacPorts is installed."
+  else
+    print_error_message "MacPorts is not installed."
+    install_macports
+  fi
+
+  # Ports file check
+  PORTS_FILE="$HOME/.dotfiles/.config/macports/ports.txt"
+  if [[ -f $PORTS_FILE ]]; then
+    print_valid_message "Ports list found."
+    print_bullet_message "Installing ports..."
+    install_ports
+    print_valid_message "All ports installed."
+  else
+    print_error_message "Ports list not found."
+    exit 1
+  fi
+
+  # Stow dotfiles
+  stow_dotfiles
+}
+
+main "$@"
