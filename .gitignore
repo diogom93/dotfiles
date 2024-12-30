@@ -1,7 +1,8 @@
 # zsh
 .zshrc.zwc
 .zsh_history
-.zcompdump-*
+.zcompdump*
 
 # nvim
 lazy-lock.json
+
