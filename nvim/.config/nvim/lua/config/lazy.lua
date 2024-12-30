@@ -27,6 +27,7 @@ require("lazy").setup({
 	require("plugins.comments"),
 	require("plugins.copilot"),
 	require("plugins.dashboard"),
+	require("plugins.flash"),
 	require("plugins.gitsigns"),
 	require("plugins.harpoon"),
 	require("plugins.indentguide"),
