@@ -6,7 +6,7 @@
     signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJjfvZojnjSNNfxFLPwiKYPkJKe19Mqyi/fTvewHol2e
 
 [commit]
-    gpgsign = true
+	gpgsign = true
 
 [gpg]
     program = /usr/local/MacGPG2/bin/gpg2
@@ -40,3 +40,5 @@
     prompt = false
 [init]
 	defaultBranch = main
+[tag]
+	gpgSign = true
