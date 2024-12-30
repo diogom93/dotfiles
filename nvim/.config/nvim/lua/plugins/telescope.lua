@@ -45,6 +45,10 @@ return {
 
 			-- [[ Configure Telescope ]]
 			-- See `:help telescope` and `:help telescope.setup()`
+
+			local remove_from_list = require("telescope.actions").delete_buffer
+			local add_to_trouble = require("trouble.sources.telescope").add
+
 			require("telescope").setup({
 				-- You can put your default mappings / updates / etc. in here
 				--  All the info you're looking for is in `:help telescope.setup()`
@@ -54,6 +58,12 @@ return {
 				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
 				--   },
 				-- },
+				defaults = {
+					mappings = {
+						i = { ["<c-x>"] = remove_from_list, ["<c-t>"] = add_to_trouble },
+						n = { ["<c-x>"] = remove_from_list, ["<c-t>"] = add_to_trouble },
+					},
+				},
 				pickers = {
 					find_files = {
 						follow = true,

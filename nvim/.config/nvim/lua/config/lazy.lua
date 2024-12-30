@@ -31,7 +31,6 @@ require("lazy").setup({
 	require("plugins.harpoon"),
 	require("plugins.indentguide"),
 	require("plugins.keybindings"),
-	require("plugins.leap"),
 	require("plugins.lsp"),
 	require("plugins.mini"),
 	require("plugins.oil"),
@@ -40,11 +39,11 @@ require("lazy").setup({
 	require("plugins.tabs"),
 	require("plugins.telescope"),
 	require("plugins.theme"),
+	require("plugins.tmuxnavigator"),
 	require("plugins.todos"),
 	require("plugins.treesitter"),
 	require("plugins.trouble"),
 	require("plugins.undotree"),
-	require("plugins.vimbegood"),
 	require("plugins.zen"),
 }, {
 	ui = {
