@@ -6,14 +6,12 @@ export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export TMUXIFIER_LAYOUT_PATH="$XDG_CONFIG_HOME/tmuxifier"
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 export GOPATH="$HOME/.go"
+export NVM_COMPLETION=true
+export NVM_LAZY_LOAD=true
 
 # --- zsh plugins ---
 source ~/.antidote/antidote.zsh
 antidote load "$ZDOTDIR/.zsh_plugins"
-# ---
-
-# --- nvm ---
-source /opt/local/share/nvm/init-nvm.sh
 # ---
 
 # --- aliases ---
@@ -110,6 +108,3 @@ eval "$(starship init zsh)"
 # --- go ---
 PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 PATH="$PATH:$(go env $GOPATH)/bin"
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-

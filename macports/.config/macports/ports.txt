@@ -21,7 +21,6 @@ mkcert
 mysql8-server
 navi
 neovim
-nvm
 rbenv
 readline
 ripgrep
