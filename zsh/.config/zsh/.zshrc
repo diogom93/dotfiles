@@ -6,8 +6,8 @@ export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export TMUXIFIER_LAYOUT_PATH="$XDG_CONFIG_HOME/tmuxifier"
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 export GOPATH="$HOME/.go"
+export NVM_AUTO_USE=true
 export NVM_COMPLETION=true
-export NVM_LAZY_LOAD=true
 
 # --- zsh plugins ---
 source ~/.antidote/antidote.zsh
