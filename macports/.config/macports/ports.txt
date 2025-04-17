@@ -4,6 +4,7 @@ bat
 bc
 btop
 coreutils
+curlie
 eza
 fastfetch
 fd
@@ -30,4 +31,6 @@ stow
 thefuck
 tlrc
 tmux
+uv
+zig
 zoxide

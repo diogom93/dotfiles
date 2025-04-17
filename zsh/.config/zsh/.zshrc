@@ -108,3 +108,6 @@ eval "$(starship init zsh)"
 # --- go ---
 PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 PATH="$PATH:$(go env $GOPATH)/bin"
+
+# --- uv ---
+PATH="$PATH:$HOME/.local/bin"
