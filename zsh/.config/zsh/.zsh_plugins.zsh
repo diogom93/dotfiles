@@ -1,5 +1,7 @@
 fpath+=( $HOME/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-lukechilds-SLASH-zsh-nvm )
 source $HOME/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-lukechilds-SLASH-zsh-nvm/zsh-nvm.plugin.zsh
+fpath+=( $HOME/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-mattberther-SLASH-zsh-pyenv )
+source $HOME/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-mattberther-SLASH-zsh-pyenv/zsh-pyenv.plugin.zsh
 if ! (( $+functions[zsh-defer] )); then
   fpath+=( $HOME/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-romkatv-SLASH-zsh-defer )
   source $HOME/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-romkatv-SLASH-zsh-defer/zsh-defer.plugin.zsh
