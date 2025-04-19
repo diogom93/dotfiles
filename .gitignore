@@ -1,9 +1,14 @@
 # zsh
 .zshrc.zwc
 .zsh_history
-.zsh_plugins.zsh
 .zcompdump*
+zsh/.config/zsh/.zsh_plugins.zsh
 
 # nvim
 lazy-lock.json
 
+# tmux
+**/tmux/plugins/*
+
+# ssh
+ssh/.ssh/known_hosts
