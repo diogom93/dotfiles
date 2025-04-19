@@ -144,7 +144,7 @@ main() {
   fi
 
   # Ports file check
-  PORTS_FILE="$HOME/.dotfiles/.config/macports/ports.txt"
+  PORTS_FILE="$HOME/.dotfiles/macports/.config/macports/ports.txt"
   if [[ -f $PORTS_FILE ]]; then
     print_valid_message "Ports list found."
     print_bullet_message "Installing ports..."
