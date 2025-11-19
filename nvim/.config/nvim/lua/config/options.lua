@@ -1,73 +1,28 @@
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
+local o = vim.opt
 
--- Make line numbers default
-vim.opt.number = true
--- You can also add relative line numbers, for help with jumping.
---  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+o.number = true
+o.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
+o.mouse = "a"
 
--- Don't show the mode, since it's already in status line
-vim.opt.showmode = false
+o.showmode = false
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
---vim.opt.clipboard = "unnamedplus"
+o.ignorecase = true
+o.smartcase = true
 
--- Enable break indent
-vim.opt.breakindent = true
+o.splitright = true
+o.splitbelow = true
 
--- Save undo history
-vim.opt.undofile = true
+o.inccommand = "split"
 
--- Case-insensitive searching UNLESS \C or capital in search
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+o.cursorline = true
 
--- Keep signcolumn on by default
-vim.opt.signcolumn = "yes"
+o.scrolloff = 10
 
--- Decrease update time
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
+o.tabstop = 2
+o.softtabstop = 2
+o.shiftwidth = 2
+o.expandtab = true
 
--- Configure how new splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
--- Sets how neovim will display certain whitespace in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = false
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
-
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
-
--- Set the tab width
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-
--- Set highlight on search
-vim.opt.hlsearch = true
-
--- Auto read file if changed outside of neovim
-vim.opt.autoread = true
-
--- Set swap and undo directories
-vim.opt.undodir = os.getenv("HOME") .. "/.vimtmp/undo"
-vim.opt.directory = os.getenv("HOME") .. "/.vimtmp/swap"
+o.undodir = os.getenv("HOME") .. "/.vimtmp/undo"
+o.swapfile = false

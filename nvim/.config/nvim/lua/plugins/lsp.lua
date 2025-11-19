@@ -14,11 +14,6 @@ return {
 			-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 			-- used for completion, annotations and signatures of Neovim apis
 			{ "folke/neodev.nvim", opts = {} },
-			{
-				"pmizio/typescript-tools.nvim",
-				dependencies = { "nvim-lua/plenary.nvim" },
-				opts = {},
-			},
 		},
 		config = function()
 			-- Brief Aside: **What is LSP?**
