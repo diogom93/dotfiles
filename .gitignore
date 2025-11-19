@@ -12,3 +12,5 @@ lazy-lock.json
 
 # ssh
 ssh/.ssh/known_hosts
+tmux/.config/tmux/plugins
+!tmux/.config/tmux/plugins/tpm
