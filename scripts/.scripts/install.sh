@@ -155,6 +155,9 @@ main() {
     exit 1
   fi
 
+  # install other tools not managed by MacPorts
+  source ./other-tools.sh
+
   # Stow dotfiles
   stow_dotfiles
 }
