@@ -42,7 +42,7 @@ install_macports() {
   latest_version=$(curl --silent "https://raw.githubusercontent.com/macports/macports-base/master/config/RELEASE_URL" | awk -F '/' '{print $NF}' | sed 's/v//')
   local macos_version
   macos_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-  local download_url="https://distfiles.macports.org/MacPorts/MacPorts-${latest_version}-${macos_version}-Sequoia.pkg"
+  local download_url="https://distfiles.macports.org/MacPorts/MacPorts-${latest_version}-${macos_version}-Tahoe.pkg"
 
   print_bullet_message "Downloading MacPorts..."
   curl --fail --output "$temp_pkg" "$download_url" || {
