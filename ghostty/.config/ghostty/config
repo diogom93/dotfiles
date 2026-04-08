@@ -1,4 +1,11 @@
-theme = tokyonight
+theme = tokyonight night
 font-family = Berkeley Mono
 font-size = 14
+background-opacity = 0.5
+background-blur = macos-glass-regular
+shell-integration-features = no-cursor
+cursor-style = block
+cursor-opacity = 0.4
+window-padding-balance = true
+confirm-close-surface = false
 
