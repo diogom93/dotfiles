@@ -1,0 +1,8 @@
+require("plugins.autoformat")
+require("plugins.cmp")
+require("plugins.copilot")
+require("plugins.gitsigns")
+require("plugins.mini")
+require("plugins.snacks")
+require("plugins.treesitter")
+require("plugins.utils")
