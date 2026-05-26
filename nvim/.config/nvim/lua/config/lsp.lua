@@ -9,9 +9,11 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-tool-installer").setup({
 	ensure_installed = {
+		"tree-sitter-cli",
 		"lua_ls",
 		"ts_ls",
 		"stylua",
+		"eslint_d",
 		"prettierd",
 	},
 })
@@ -28,7 +30,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			end, { buffer = buf, desc = "Toggle inlay hints" })
 		end
 
-		if client and client.server_capabilities["hoverProvider"] then
+		if client and client:supports_method("textDocument/hover") then
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buf, desc = "Hover documentation" })
 		end
 

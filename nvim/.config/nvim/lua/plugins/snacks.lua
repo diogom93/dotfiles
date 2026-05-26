@@ -3,9 +3,6 @@ vim.pack.add({
 })
 
 require("snacks").setup({
-	explorer = {
-		enabled = true,
-	},
 	indent = {
 		enabled = true,
 	},
@@ -55,11 +52,11 @@ local keymaps = {
 		desc = "Notification History",
 	},
 	{
-		"<leader>et",
+		"<leader>t",
 		function()
 			Snacks.explorer()
 		end,
-		desc = "File Explorer",
+		desc = "File [T]ree",
 	},
 	{
 		"<leader>,",

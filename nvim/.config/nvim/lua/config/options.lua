@@ -40,6 +40,15 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
+vim.o.foldlevelstart = 99
+vim.opt.fillchars = {
+	fold = " ",
+	foldopen = "▾",
+	foldclose = "▸",
+	foldinner = " ",
+	foldsep = " ",
+}
+
 vim.opt.hlsearch = true
 
 vim.opt.autoread = true
